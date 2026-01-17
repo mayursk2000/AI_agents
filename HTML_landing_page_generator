@@ -1,5 +1,16 @@
 
 
+# A fun and Scary thought:
+# - 2500 tokens per second means the model can read, process, or generate about 2500 words or parts of words every second. A "token" is usually about ¾ of a word on average (for English).
+# - 2500 tokens/second is roughly like reading or writing about 1800 full words every second.
+# - That means Llama models are very fast that they can generate almost an entire short essay in one second!
+
+# **PRACTICE OPPORTUNITY:**
+# - **Using Vellum, compare Google's Gemini 2.5 Pro model with Deepseek-R1 (or the latest version) based on latency, context window, cut-off date, and accuracy.**
+
+# In[ ]:
+
+
 #Gemini beats on context Windows, deepseek is faster token rate
 
 
@@ -490,7 +501,7 @@ except Exception as e:
 
 # 
 
-# In[ ]:
+# In[4]:
 
 
 # Define the core prompt for the LLMs
@@ -527,215 +538,5 @@ Do not include any explanations before or after the code block. Just provide the
 
 print_markdown("**Core Prompt defined for the LLMs:**")
 print_markdown(f"> {html_prompt}")  # Print the start of the prompt to verify
-
-
-# 
-
-# # PRACTICE OPPORTUNITY SOLUTIONS
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **Using Vellum, compare the Google Gemini 2.5 Pro model with Deepseek-R1 (or the latest version) based on latency, context window, cut-off date, and accuracy.**
-
-# ![image.png](attachment:cb5129a1-91c5-42fd-8eb0-03e22c92d98a.png)
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **In this practice opportunity, you will become an AI Judge by comparing blind responses from two AI models. Complete the following tasks:**
-#     - **1. Visit Chatbot Arena and start a blind test: https://beta.lmarena.ai/**
-#     - **2. Ask a 3 questions that are technical, creative, and funny. For example:**
-#          - **Technical: "Explain how a blockchain works."**
-#          - **Creative: "Write a short, heartfelt poem for my mom Laila, for her 74th birthday (put your mom or signifant other's name)"**
-#          - **Funny: "Tell me a joke that involves electric cars."**
-#     - **3. Decide: After each round, choose which bot provided the better answer based on clarity, creativity, and correctness. Enjoy the challenge and have fun discovering the unique strengths of each AI!**
-
-# In[ ]:
-
-
-# Test all models and perform a blind assessment - watch the course video!
-
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **Compare code generation ability of the 3 LLMs covered above (Claude Sonnet by Anthropic, gpt-4o by OpenAI, and gemini-2.0-flash by Google)**
-# - **Try something like:**
-#     - **test_prompt = "Build a function that calculates BMI. Let users choose between metric (kg/m) and imperial (lb/in) units."**
-
-# In[ ]:
-
-
-test_prompt = "Build a function in Python that calculates BMI. Let users choose between metric (kg/m) and imperial (lb/in) units."
-
-
-# In[ ]:
-
-
-# Let's test OpenAI API (we have done this many times already)
-response = openai_client.chat.completions.create(model = "gpt-4o", 
-                                                 messages = [{"role": "user", 
-                                                              "content": test_prompt}],
-                                                 temperature = 0.5)
-print_markdown(response.choices[0].message.content)
-
-
-# In[ ]:
-
-
-# Let's test the Claude Sonnet Model by Anthropic
-response = claude_client.messages.create(model = "claude-3-7-sonnet-20250219",
-        max_tokens = 20000,  # Set a max limit for the generated output
-        messages=[{"role": "user", 
-                   "content": test_prompt}])
-
-# Extract the text content from the response object
-print_markdown(response.content[0].text)
-
-
-# In[ ]:
-
-
-# Let's test Google Gemini Model
-response = gemini_model.generate_content(test_prompt)
-print_markdown(response.text)
-
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **Change the `startup_name` and `startup_concept` variables in the code cell above to describe a different fictional startup (e.g., "AI Recipe Chef" or "Personalized Fitness Planner".**
-# - **Rerun the code cell to update the `html_prompt` variable with your new idea.**
-# - **Read the updated `html_prompt` to ensure your changes are reflected. This new prompt will be used in the following steps.**
-
-# In[ ]:
-
-
-# Define the fictional startup idea (Example Modification)
-startup_name = "Quantum Leap Computing"
-startup_concept = "A cloud platform providing affordable access to quantum computing resources for researchers and small businesses. Focus on a user-friendly interface and educational materials."
-
-# Define the core prompt again to capture changes (This part is already in Task 3 cell)
-html_prompt = f"""
-You are a helpful AI assistant acting as a front-end web developer.
-
-Your task is to generate the complete HTML code for a simple, clean, and professional-looking landing page (index.html) for a new startup.
-
-Startup Name: {startup_name}
-Concept: {startup_concept}
-
-Please generate ONLY the full HTML code, starting with <!DOCTYPE html> and ending with </html>.
-Create a modern, visually appealing landing page with the following:
-
-1. A sleek header with the startup name in a bold, modern font and a compelling tagline
-2. A hero section with a clear value proposition and call-to-action button
-3. A features section highlighting 3-4 key benefits with icons or simple visuals
-4. A "How it Works" section with numbered steps
-5. A testimonials section with fictional customer quotes
-6. A pricing section with at least two tiers
-7. A professional footer with navigation links and social media icons
-
-Use inline CSS for styling with a modern color palette (primary, secondary, and accent colors). 
-Include responsive design elements, subtle animations, and whitespace for readability.
-Emphasize AI capabilities, ease of use, and business benefits throughout the copy.
-Focus on conversion-optimized marketing messages that highlight pain points and solutions.
-
-Do not include any explanations before or after the code block. Just provide the raw HTML code.
-"""
-
-print_markdown("**Core Prompt UPDATED for the LLMs (Practice Opportunity Example):**")
-print_markdown(f"> {html_prompt[:500]}...")  # This line in Task 3 confirms the change
-
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **In the code cell above, change the `model` parameter in the `openai_client.chat.completions.create` call from `"gpt-4o"` to a different OpenAI model you have access to (e.g., `"gpt-4o-mini"`).**
-# - **Rerun the cell and observe the generated HTML code. Is it significantly different?**
-# - **Check the saved `openai_landing_page.html` file to ensure it was updated. (You might need to refresh your file browser).**
-
-# In[ ]:
-
-
-# Generate HTML using OpenAI
-
-openai_html_output = "<!-- OpenAI generation not run or failed -->"  # Default message
-
-
-try:
-    response = openai_client.chat.completions.create(
-        # model="gpt-4o", # Original model
-        model = "gpt-4o-mini",  # <<< MODIFIED for the practice opportunity
-        messages = [{"role": "user", "content": html_prompt}],
-        temperature = 0.5,
-    )
-    openai_html_output = response.choices[0].message.content
-
-    # Display the generated HTML code
-    display_html_code("OpenAI (gpt-4o - Practice 2)", openai_html_output)
-
-    # --- Save the output to a file ---
-    file_path = "openai_landing_page_practice_opportunity.html"  # Save to a different file to compare
-    try:
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(openai_html_output)
-        print_markdown(f"Successfully saved OpenAI output (Practice Opportunity) to `{file_path}`")
-    except Exception as e:
-        print_md(f"Error saving file: {e}")
-
-except Exception as e:
-    print_mardown(f"Error calling OpenAI API: {e}")
-    openai_html_output = f"<!-- Error calling OpenAI API: {e} -->"
-
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **Look closely at the raw HTML code generated by Gemini in the output above (or in the `gemini_landing_page.html` file).**
-# - **Compare it to the structure generated by OpenAI (from the previous task).**
-# - **Use Google Gemini model to generate an HTML page using a different startup and vision (e.g.: Quantum computing startup**
-
-# In[ ]:
-
-
-# Rerun the cell with the new startup name! 
-
-
-# **PRACTICE OPPORTUNITY SOLUTION:**
-# - **Modify the prompt to include a `contact/sign-up` form with colors that catch attention, feel free to get creative!**
-# - **Rerun all three models and open the saved files (`openai_landing_page.html`, `gemini_landing_page.html`, `claude_landing_page.html`) in a text editor and compare the code structure from all three providers for the *same* startup prompt.**
-# - **Which provider do you think generated the cleanest, most semantic HTML structure based purely on reading the code? Which one seemed to follow the instructions most closely? There's no single right answer, it's subjective and depends on the run!**
-
-# In[ ]:
-
-
-# Define the startup name and concept
-startup_name = "ConnectGenius"
-startup_concept = "An intelligent CRM system that uses AI to analyze customer interactions, predict needs, and automate personalized follow-ups. Focus on improving customer retention and sales efficiency for businesses of all sizes."
-
-
-# In[ ]:
-
-
-# Define the core prompt with an added feature request
-html_prompt = f"""
-You are a helpful AI assistant acting as a front-end web developer.
-
-Your task is to generate the complete HTML code for a simple, clean, and professional-looking landing page (index.html) for a new startup.
-
-Startup Name: {startup_name}
-Concept: {startup_concept}
-
-Please generate ONLY the full HTML code, starting with <!DOCTYPE html> and ending with </html>.
-Create a modern, visually appealing landing page with the following:
-
-1. A sleek header with the startup name in a bold, modern font and a compelling tagline
-2. A hero section with a clear value proposition and call-to-action button
-3. A features section highlighting 3-4 key benefits with icons or simple visuals
-4. A "How it Works" section with numbered steps
-5. A testimonials section with fictional customer quotes
-6. A pricing section with at least two tiers
-7. A contact/sign-up form with red color to grab people attention
-8. A professional footer with navigation links and social media icons
-
-Use inline CSS for styling with a modern color palette (primary, secondary, and accent colors). 
-Include responsive design elements, subtle animations, and whitespace for readability.
-Emphasize AI capabilities, ease of use, and business benefits throughout the copy.
-Focus on conversion-optimized marketing messages that highlight pain points and solutions.
-
-Do not include any explanations before or after the code block. Just provide the raw HTML code.
-"""
-
-print_markdown("**Core Prompt UPDATED with Contact Form Request (for practice opportunity):**")
-print_markdown(f"> {html_prompt[:250]}...")  # Verify the prompt modification
 
 
